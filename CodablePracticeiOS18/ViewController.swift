@@ -12,7 +12,17 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        do {
+            guard let personDictionary = try JSONSerialization.jsonObject(with: basicPerson, options: []) as? [String: Any] else { return }
+            let person = Person(dictionary: personDictionary)
+            let personJSON = try JSONSerialization.data(withJSONObject: person?.dictionaryRepresentation, options: [])
+            
+        } catch {
+            NSLog("Error deserializing JSON: \(error)")
+        }
+        
+        
     }
 
 
